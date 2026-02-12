@@ -1,0 +1,38 @@
+baseURL = '/'
+languageCode = 'en-us'
+title = 'PenumbraOS'
+
+[params]
+  description = 'Documentation and resources for the Ai Pin'
+  tagline = 'Documentation & resources for the Ai Pin'
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[taxonomies]
+  section_group = 'section_groups'
+  tag = 'tags'
+
+[menu]
+  [[menu.main]]
+    identifier = 'knowledgebase'
+    name = 'Knowledgebase'
+    url = '/knowledgebase/'
+    weight = 10
+  [[menu.main]]
+    identifier = 'reference'
+    name = 'Reference'
+    url = '/reference/'
+    weight = 20
+  [[menu.main]]
+    identifier = 'reverse-engineering'
+    name = 'Reverse Engineering'
+    url = '/reverse-engineering/'
+    weight = 30
+  [[menu.main]]
+    identifier = 'penumbraos'
+    name = 'PenumbraOS'
+    url = '/penumbraos/'
+    weight = 40
