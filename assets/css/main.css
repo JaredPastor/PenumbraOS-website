@@ -852,6 +852,132 @@ img {
   }
 }
 
+/* ---- Press Kit ---- */
+.press-kit {
+  padding-top: var(--space-2xl);
+  padding-bottom: var(--space-3xl);
+}
+
+.press-kit-intro {
+  margin-bottom: var(--space-2xl);
+}
+
+.press-kit-download {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-xl);
+  background: var(--color-beam);
+  color: #000;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: var(--radius-md);
+  transition: background var(--transition);
+}
+
+.press-kit-download:hover {
+  background: var(--color-beam-dim);
+}
+
+.press-kit-download svg {
+  flex-shrink: 0;
+}
+
+.press-kit-section {
+  margin-bottom: var(--space-2xl);
+}
+
+.press-kit-section-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--space-lg);
+}
+
+.press-kit-grid {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.press-kit-grid--logos {
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+}
+
+.press-kit-grid--product {
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+.press-kit-grid--lifestyle {
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.press-kit-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-umbra);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: border-color var(--transition), background var(--transition);
+}
+
+.press-kit-card:hover {
+  border-color: var(--color-beam);
+  background: var(--color-surface);
+}
+
+.press-kit-card-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  min-height: 120px;
+}
+
+.press-kit-card-img img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.press-kit-card--light-bg .press-kit-card-img {
+  background: #e0e0e0;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.press-kit-caption {
+  display: block;
+  padding: var(--space-sm) var(--space-md);
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  border-top: 1px solid var(--color-border);
+}
+
+@media (max-width: 768px) {
+  .press-kit-grid--logos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .press-kit-grid--product {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .press-kit-grid--lifestyle {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .press-kit-grid--logos,
+  .press-kit-grid--product {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ---- Clearfix for floated images ---- */
 .article-body::after {
   content: "";

@@ -1,0 +1,110 @@
+{{ define "main" }}
+<div class="section-header">
+  <div class="container">
+    <nav class="breadcrumb">
+      <a href="/reference/">Reference</a>
+      <span class="breadcrumb-sep">/</span>
+      <span>Press Kit</span>
+    </nav>
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="section-subtitle">{{ . }}</p>{{ end }}
+  </div>
+</div>
+
+<div class="press-kit container">
+  <div class="press-kit-intro">
+    <a href="/downloads/humane-media-kit.zip" class="press-kit-download" download>
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Download All (ZIP, 29 MB)
+    </a>
+  </div>
+
+  {{/* ---- Logos ---- */}}
+  {{ $logoFiles := slice
+    "humane-logo-guidelines.png"
+    "humane-press-horizontal-logo-black.png"
+    "humane-press-horizontal-logo-white.png"
+    "humane-press-vertical-logo-black.png"
+    "humane-press-vertical-logo-white.png"
+  }}
+  {{ $lightBgFiles := slice
+    "humane-press-horizontal-logo-white.png"
+    "humane-press-vertical-logo-white.png"
+  }}
+
+  <section class="press-kit-section">
+    <h2 class="press-kit-section-title">Logos</h2>
+    <div class="press-kit-grid press-kit-grid--logos">
+      {{ range $logoFiles }}
+        {{ $img := $.Resources.GetMatch . }}
+        {{ if $img }}
+          {{ $thumb := $img.Resize "600x" }}
+          {{ $isLight := in $lightBgFiles . }}
+          <a href="{{ $img.Permalink }}" target="_blank" rel="noopener" class="press-kit-card{{ if $isLight }} press-kit-card--light-bg{{ end }}">
+            <div class="press-kit-card-img">
+              <img src="{{ $thumb.RelPermalink }}" width="{{ $thumb.Width }}" height="{{ $thumb.Height }}" alt="{{ . }}" loading="lazy">
+            </div>
+            <span class="press-kit-caption">{{ . | replaceRE `^humane-(?:press-)?` "" | replaceRE `\.png$` "" | replaceRE `-` " " | title }}</span>
+          </a>
+        {{ end }}
+      {{ end }}
+    </div>
+  </section>
+
+  {{/* ---- Product ---- */}}
+  {{ $productFiles := slice
+    "humane-press-aipin-family.png"
+    "humane-press-equinox-side.png"
+    "humane-press-chargecase-front-back.png"
+    "humane-press-chargepad.png"
+    "humane-press-shields-chain.png"
+  }}
+
+  <section class="press-kit-section">
+    <h2 class="press-kit-section-title">Product</h2>
+    <div class="press-kit-grid press-kit-grid--product">
+      {{ range $productFiles }}
+        {{ $img := $.Resources.GetMatch . }}
+        {{ if $img }}
+          {{ $thumb := $img.Resize "600x" }}
+          <a href="{{ $img.Permalink }}" target="_blank" rel="noopener" class="press-kit-card">
+            <div class="press-kit-card-img">
+              <img src="{{ $thumb.RelPermalink }}" width="{{ $thumb.Width }}" height="{{ $thumb.Height }}" alt="{{ . }}" loading="lazy">
+            </div>
+            <span class="press-kit-caption">{{ . | replaceRE `^humane-press-` "" | replaceRE `\.png$` "" | replaceRE `-` " " | title }}</span>
+          </a>
+        {{ end }}
+      {{ end }}
+    </div>
+  </section>
+
+  {{/* ---- Lifestyle ---- */}}
+  {{ $lifestyleFiles := slice
+    "humane-press-interactions.png"
+    "humane-press-shield-lifestyle-1.png"
+    "humane-press-shield-lifestyle-2.png"
+  }}
+
+  <section class="press-kit-section">
+    <h2 class="press-kit-section-title">Lifestyle</h2>
+    <div class="press-kit-grid press-kit-grid--lifestyle">
+      {{ range $lifestyleFiles }}
+        {{ $img := $.Resources.GetMatch . }}
+        {{ if $img }}
+          {{ $thumb := $img.Resize "800x" }}
+          <a href="{{ $img.Permalink }}" target="_blank" rel="noopener" class="press-kit-card">
+            <div class="press-kit-card-img">
+              <img src="{{ $thumb.RelPermalink }}" width="{{ $thumb.Width }}" height="{{ $thumb.Height }}" alt="{{ . }}" loading="lazy">
+            </div>
+            <span class="press-kit-caption">{{ . | replaceRE `^humane-press-` "" | replaceRE `\.png$` "" | replaceRE `-` " " | title }}</span>
+          </a>
+        {{ end }}
+      {{ end }}
+    </div>
+  </section>
+</div>
+{{ end }}
