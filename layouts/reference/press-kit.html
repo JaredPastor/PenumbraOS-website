@@ -13,7 +13,8 @@
 
 <div class="press-kit container">
   <div class="press-kit-intro">
-    <a href="/downloads/humane-media-kit.zip" class="download-btn" download>
+    {{ with .Resources.GetMatch "humane-media-kit.zip" }}
+    <a href="{{ .RelPermalink }}" class="download-btn" download>
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
         <polyline points="7 10 12 15 17 10"/>
@@ -21,6 +22,7 @@
       </svg>
       Download All (ZIP, 29 MB)
     </a>
+    {{ end }}
   </div>
 
   {{/* ---- Logos ---- */}}

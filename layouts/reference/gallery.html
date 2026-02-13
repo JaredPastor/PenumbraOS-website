@@ -22,7 +22,8 @@
       <span>These images were scraped from humane.com before the site went offline. They are the property of Humane, Inc. and are preserved here for archival and research purposes.</span>
     </div>
     <div class="gallery-downloads">
-      <a href="/downloads/humane-gallery-images.zip" class="download-btn" download>
+      {{ with .Resources.GetMatch "humane-gallery-images.zip" }}
+      <a href="{{ .RelPermalink }}" class="download-btn" download>
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
           <polyline points="7 10 12 15 17 10"/>
@@ -30,6 +31,7 @@
         </svg>
         Download All Images (ZIP, 50 MB)
       </a>
+      {{ end }}
     </div>
   </div>
 
