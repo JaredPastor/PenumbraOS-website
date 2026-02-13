@@ -3,7 +3,7 @@
   <div class="article-header">
     <div class="container-narrow">
       <nav class="breadcrumb">
-        <a href="/knowledgebase/">Knowledgebase</a>
+        <a href="{{ .Parent.RelPermalink }}">Knowledgebase</a>
         <span class="breadcrumb-sep">/</span>
         <span>{{ .Params.section_name | default "General" }}</span>
       </nav>
@@ -38,7 +38,7 @@
       <a href="https://web.archive.org/web/2025/{{ . }}" target="_blank" rel="noopener" class="source-link">View on Internet Archive</a>
     </div>
     {{ end }}
-    <a href="/knowledgebase/" class="back-link">&larr; Back to Knowledgebase</a>
+    <a href="{{ .Parent.RelPermalink }}" class="back-link">&larr; Back to Knowledgebase</a>
   </div>
 </article>
 {{ end }}

@@ -17,11 +17,6 @@ title = 'PenumbraOS'
 
 [menu]
   [[menu.main]]
-    identifier = 'knowledgebase'
-    name = 'Knowledgebase'
-    url = '/knowledgebase/'
-    weight = 10
-  [[menu.main]]
     identifier = 'reference'
     name = 'Reference'
     url = '/reference/'

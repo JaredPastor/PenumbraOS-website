@@ -7,9 +7,9 @@
 </div>
 
 <div class="section-content container">
-  {{ if .RegularPages }}
+  {{ if .Pages }}
   <div class="section-page-list">
-    {{ range .RegularPages }}
+    {{ range .Pages }}
     <a href="{{ .RelPermalink }}" class="section-page-card">
       <h3 class="section-page-title">{{ .Title }}</h3>
       {{ with .Description }}<p class="section-page-desc">{{ . }}</p>{{ end }}

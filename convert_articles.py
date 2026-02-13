@@ -103,7 +103,7 @@ def clean_html_body(body):
         article_id = match.group(1)
         slug_part = match.group(2)
         new_slug = slug_part.lower()
-        return f'href="/knowledgebase/{new_slug}/"'
+        return f'href="/reference/knowledgebase/{new_slug}/"'
 
     body = re.sub(
         r'href="https://support\.humane\.com/hc/en-us/articles/(\d+)-([^"]+)"',
@@ -121,7 +121,7 @@ def clean_html_body(body):
         return match.group(0)  # Keep valid links as-is
 
     body = re.sub(
-        r'<a[^>]*href="/knowledgebase/([^/"]+)/"[^>]*>(.*?)</a>',
+        r'<a[^>]*href="/reference/knowledgebase/([^/"]+)/"[^>]*>(.*?)</a>',
         strip_dead_link,
         body,
         flags=re.DOTALL
@@ -251,7 +251,7 @@ def main():
 
     script_dir = Path(__file__).parent
     clean_articles_dir = script_dir / '..' / 'support' / 'clean_articles'
-    output_dir = script_dir / 'content' / 'knowledgebase'
+    output_dir = script_dir / 'content' / 'reference' / 'knowledgebase'
 
     output_dir.mkdir(parents=True, exist_ok=True)
 
