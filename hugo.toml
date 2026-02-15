@@ -3,8 +3,8 @@ languageCode = 'en-us'
 title = 'PenumbraOS'
 
 [params]
-  description = 'Documentation and resources for the Ai Pin'
-  tagline = 'Documentation & resources for the Ai Pin'
+  description = 'A developer-friendly resurrection of the Humane Ai Pin'
+  tagline = 'A developer-friendly resurrection of the Humane Ai Pin'
 
 [markup]
   [markup.goldmark]
@@ -26,17 +26,27 @@ title = 'PenumbraOS'
 
 [menu]
   [[menu.main]]
-    identifier = 'reference'
-    name = 'Reference'
-    url = '/reference/'
+    identifier = 'getting-started'
+    name = 'Getting Started'
+    url = '/getting-started/'
+    weight = 10
+  [[menu.main]]
+    identifier = 'guide'
+    name = 'Guide'
+    url = '/guide/'
     weight = 20
   [[menu.main]]
-    identifier = 'reverse-engineering'
-    name = 'Reverse Engineering'
-    url = '/reverse-engineering/'
+    identifier = 'device'
+    name = 'Device'
+    url = '/device/'
     weight = 30
   [[menu.main]]
-    identifier = 'penumbraos'
-    name = 'PenumbraOS'
-    url = '/penumbraos/'
+    identifier = 'archive'
+    name = 'Archive'
+    url = '/archive/'
     weight = 40
+  [[menu.main]]
+    identifier = 'about'
+    name = 'About'
+    url = '/about/'
+    weight = 50

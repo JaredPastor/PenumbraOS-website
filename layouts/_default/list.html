@@ -1,20 +1,35 @@
 {{ define "main" }}
 <div class="section-header">
   <div class="container">
+    {{ partial "breadcrumb.html" . }}
     <h1>{{ .Title }}</h1>
     {{ with .Description }}<p class="section-subtitle">{{ . }}</p>{{ end }}
   </div>
 </div>
 
-<div class="section-content container">
-  {{ if .Pages }}
-  <div class="section-page-list">
-    {{ range .Pages }}
-    <a href="{{ .RelPermalink }}" class="section-page-card">
-      <h3 class="section-page-title">{{ .Title }}</h3>
-      {{ with .Description }}<p class="section-page-desc">{{ . }}</p>{{ end }}
-    </a>
+{{ if .FirstSection.Pages }}
+{{/* Section within a docs structure: sidebar + content layout */}}
+<div class="docs-layout container">
+  {{ partial "sidebar-nav.html" . }}
+  <div class="docs-main">
+    {{ if .Content }}
+    <div class="article-body">
+      {{ .Content }}
+    </div>
+    {{ else }}
+    <div class="section-empty">
+      <p>Content coming soon.</p>
+    </div>
     {{ end }}
+  </div>
+</div>
+
+{{ else }}
+{{/* Standalone section (no children): full-width content */}}
+<div class="section-content container">
+  {{ if .Content }}
+  <div class="article-body">
+    {{ .Content }}
   </div>
   {{ else }}
   <div class="section-empty">
@@ -22,4 +37,5 @@
   </div>
   {{ end }}
 </div>
+{{ end }}
 {{ end }}

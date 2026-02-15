@@ -1,0 +1,55 @@
+{{/*
+  Sidebar navigation partial.
+  Renders a tree nav for the top-level section containing the current page.
+  
+  Usage: {{ partial "sidebar-nav.html" . }}
+  
+  Context: the current page (.)
+  
+  Determines the top-level section via .FirstSection, then renders
+  its children as a nav tree. Subsections with children are rendered
+  as expandable groups. The current page gets an "active" class.
+  Auto-expands the branch containing the current page.
+*/}}
+
+{{ $current := . }}
+{{ $section := .FirstSection }}
+
+<aside class="docs-sidebar">
+  <nav class="docs-nav" aria-label="Section navigation">
+    <a href="{{ $section.RelPermalink }}"
+       class="docs-nav-link docs-nav-section-title{{ if eq $current.RelPermalink $section.RelPermalink }} active{{ end }}">
+      {{ $section.Title }}
+    </a>
+
+    {{ range $section.Pages }}
+      {{ if .IsSection }}
+        {{/* This is a subsection (e.g., device/hardware/) */}}
+        {{ $isAncestor := .IsAncestor $current }}
+        {{ $isCurrent := eq $current.RelPermalink .RelPermalink }}
+        <div class="docs-nav-group{{ if or $isAncestor $isCurrent }} open{{ end }}">
+          <a href="{{ .RelPermalink }}"
+             class="docs-nav-link docs-nav-group-title{{ if $isCurrent }} active{{ end }}">
+            {{ .Title }}
+          </a>
+          {{ if .Pages }}
+          <div class="docs-nav-children">
+            {{ range .Pages }}
+            <a href="{{ .RelPermalink }}"
+               class="docs-nav-link{{ if eq $current.RelPermalink .RelPermalink }} active{{ end }}">
+              {{ .Title }}
+            </a>
+            {{ end }}
+          </div>
+          {{ end }}
+        </div>
+      {{ else }}
+        {{/* This is a leaf page (e.g., guide/mabl.md) */}}
+        <a href="{{ .RelPermalink }}"
+           class="docs-nav-link{{ if eq $current.RelPermalink .RelPermalink }} active{{ end }}">
+          {{ .Title }}
+        </a>
+      {{ end }}
+    {{ end }}
+  </nav>
+</aside>

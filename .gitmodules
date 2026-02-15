@@ -1,6 +1,6 @@
-[submodule "content/reference/gallery"]
-	path = content/reference/gallery
+[submodule "content/archive/gallery"]
+	path = content/archive/gallery
 	url = https://github.com/PenumbraOS/humane-image-gallery.git
-[submodule "content/reference/press-kit"]
-	path = content/reference/press-kit
+[submodule "content/archive/press-kit"]
+	path = content/archive/press-kit
 	url = https://github.com/PenumbraOS/humane-press-kit.git

@@ -1,6 +1,7 @@
 {{ define "main" }}
 <div class="section-header">
   <div class="container">
+    {{ partial "breadcrumb.html" . }}
     <h1>Knowledgebase</h1>
     <p class="section-subtitle">{{ len .RegularPages }} of 97 original articles recovered.</p>
     <div class="search-wrapper" id="search"></div>

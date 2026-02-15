@@ -1,0 +1,28 @@
+{{/*
+  Breadcrumb partial — auto-generates from page ancestry.
+  Shows nothing on the homepage or top-level section indexes.
+  For everything else, builds: Section > Subsection > ... > Current
+*/}}
+{{ $current := . }}
+{{ $ancestors := slice }}
+
+{{/* Walk up from parent to build ancestor chain, stop at homepage */}}
+{{ $p := .Parent }}
+{{ range seq 10 }}
+  {{ if and $p (not $p.IsHome) }}
+    {{ $ancestors = $ancestors | append $p }}
+    {{ $p = $p.Parent }}
+  {{ end }}
+{{ end }}
+
+{{/* Only show breadcrumb if there are ancestors (i.e. page is below a top-level section) */}}
+{{ if gt (len $ancestors) 0 }}
+<nav class="breadcrumb">
+  {{/* Reverse the ancestors so they go from top to bottom */}}
+  {{ range $ancestors | collections.Reverse }}
+    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    <span class="breadcrumb-sep">/</span>
+  {{ end }}
+  <span>{{ $current.Title }}</span>
+</nav>
+{{ end }}

@@ -1,11 +1,7 @@
 {{ define "main" }}
 <div class="section-header">
   <div class="container">
-    <nav class="breadcrumb">
-      <a href="{{ .Parent.RelPermalink }}">Reference</a>
-      <span class="breadcrumb-sep">/</span>
-      <span>Image Gallery</span>
-    </nav>
+    {{ partial "breadcrumb.html" . }}
     <h1>{{ .Title }}</h1>
     {{ with .Description }}<p class="section-subtitle">{{ . }}</p>{{ end }}
   </div>
