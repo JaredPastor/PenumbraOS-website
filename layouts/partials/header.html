@@ -10,6 +10,7 @@
       {{ range .Site.Menus.main }}
         <a href="{{ .URL }}" class="nav-link{{ if $.IsMenuCurrent "main" . }} active{{ end }}">{{ .Name }}</a>
       {{ end }}
+      <a href="https://github.com/PenumbraOS/" class="nav-link nav-link--github" target="_blank" rel="noopener" aria-label="GitHub">{{ partial "icons/github.html" }}</a>
     </nav>
   </div>
 </header>

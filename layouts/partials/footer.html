@@ -8,7 +8,7 @@
     {{ with .Site.Params.footer.links }}
     <div class="footer-links">
       {{ range . }}
-      <a href="{{ .url }}" class="footer-link" target="_blank" rel="noopener">{{ .name }}</a>
+      <a href="{{ .url }}" class="footer-link" target="_blank" rel="noopener">{{ if eq .name "GitHub" }}{{ partial "icons/github.html" }}{{ end }}{{ .name }}</a>
       {{ end }}
     </div>
     {{ end }}

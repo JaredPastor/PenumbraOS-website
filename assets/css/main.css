@@ -140,6 +140,16 @@ img {
   color: var(--color-text-heading);
 }
 
+.nav-link--github {
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-link--github svg {
+  width: 20px;
+  height: 20px;
+}
+
 /* ---- Hero (Homepage) ---- */
 .hero {
   background: var(--color-eclipse);
@@ -204,6 +214,11 @@ img {
   background: var(--color-surface);
   border-color: var(--color-text-muted);
   color: var(--color-text-heading);
+}
+
+.hero-cta--secondary svg {
+  width: 18px;
+  height: 18px;
 }
 
 .content-cta {
@@ -935,9 +950,17 @@ img {
 }
 
 .footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
   font-size: 0.8rem;
   color: var(--color-text-secondary);
   transition: color var(--transition);
+}
+
+.footer-link svg {
+  width: 14px;
+  height: 14px;
 }
 
 .footer-link:hover {
