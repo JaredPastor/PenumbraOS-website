@@ -13,28 +13,27 @@ PenumbraOS is and always will be experimental software. Expect problems and the 
 
 If you want to do anything with the Humane Ai Pin, you don't have any other option. Humane had a strange idea of what "privacy" meant; privacy meant that "no one else can steal your data". That meant that the Ai Pin was locked down tightly, while still sending basically all of your Pin's information to Humane's servers (thus by definition not keeping it private). Even once you've gained access to the Pin using the leaked ADB certificate, apps you install cannot access the network, touchpad, hand gestures, or basically anything else.
 
-After a long and drawn out investigation, [@agg23](https://github.com/agg23) arrived at a convoluted solution to deliver that missing functionality in a way that end users and developers can use and understand without dealing with complicated exploits. That solution is PenumbraOS.
+After a long and drawn out investigation, PenumbraOS was built to give developers access to the internals of the Ai Pin and to allow them to "fix" the existing Humane cosmOS software; allowing the Ai Pin to largely function as it did before it became defunct.
 
 ## What can PenumbraOS do?
 
-PenumbraOS runs automatically on Ai Pin startup, setting up all of the resources necessary to bypass Humane's tight restrictions. It sets up mechanisms for making network calls and talking to hardware features.
+In its current iteration, PenumbraOS is designed to function exactly how the Ai Pin did in its prime. The software is all the same, just with tweaks to make it functional.
 
-When using our official launcher/assistant, [MABL](https://github.com/PenumbraOS/mabl), the following functionality is implemented:
+- Hold a single finger to talk to your Pin
+- Double tap two fingers to take a picture
+- Double tap and hold two fingers to take a video
 
-- An assistant that functions local-first. All requests that could be served locally are served locally when possible
-  - Provide LLM information for queries to external services. This is required for everything but offline functionality, but you can self-host your LLM (or even run it on device if you're very adventurous)
-  - Offline processing of simple queries, like requesting battery level, changing volume, and similar
-  - Queries support internet search through multiple providers (Gemini, Google Search API keys, SearX)
-- Speaks in the official Humane voice, run entirely on device
-- Touchpad gestures similar to the original software
-  - Hold a single finger to talk to the assistant
-  - Hold two fingers to take a picture and send that picture and your voice query to the assistant
-- Set timers and alarms
-- Raise hand to "laser in" and view the current time
-- Hand gestures to access menus, similar to with the original software
+PenumbraOS runs a local version of the Humane server that you can access through [Center](/center). Memories such as photos will appear here automatically. You can provide API keys for various LLM providers including OpenAI, Anthropic, Gemini, and custom APIs.
 
-The only information MABL ever sends out to someone is the information you specifically requested. You can customize the LLM system prompt entirely and you control how conversations are sent to be processed by a LLM provider.
+You control everything the Ai Pin does, and can choose how you share your data.
+
+## Requirements
+
+- **Humane Ai Pin**
+- **Interposer** - A dock that connects to the Pin's debug interface (four metal pads underneath a sticker on the bottom of the device), which you can connect to a computer using USB. You can [buy one from GoinGhost](https://www.etsy.com/listing/1904242117/ai-pin-usb-dock-slim-final-ver-woptions) or [build your own](https://github.com/PenumbraOS/interposer).
+- **Computer with Chrome/Edge** - The installer runs in your browser using WebUSB.
+- **LLM API key** - PenumbraOS replaces Humane's cloud services with an LLM you provide. You'll need connection details to an API service; an API URL, API key, and model name. For ease of integrated search and maps, we recommend [Gemini](https://ai.google.dev/gemini-api/docs) (can be used free for some very small number of requests), but [OpenAI](https://platform.openai.com/) is commonly used.
 
 <div class="content-cta">
-  <a href="/getting-started/installation/" class="hero-cta">Install PenumbraOS</a>
+  <a href="/install/" class="hero-cta">Install PenumbraOS</a>
 </div>
