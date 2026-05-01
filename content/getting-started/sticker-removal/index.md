@@ -1,5 +1,5 @@
 +++
-title = "Pin Preparation"
+title = "Sticker Removal"
 description = "Removing the moon sticker to expose the debug connector pads."
 weight = 5
 +++
