@@ -16,7 +16,7 @@ title = 'PenumbraOS'
   tag = 'tags'
 
 [params.footer]
-  note = 'PenubmraOS is not affiliated with Humane Inc. or HP Inc. The Ai Pin trademark and archived content remains property of HP.'
+  note = 'PenumbraOS is not affiliated with Humane Inc. or HP Inc. The Ai Pin trademark and archived content remains property of HP.'
   [[params.footer.links]]
     name = 'GitHub'
     url = 'https://github.com/PenumbraOS/'
