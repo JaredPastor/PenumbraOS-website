@@ -3,6 +3,7 @@
   <div class="hero-inner">
     <h1 class="hero-title">{{ .Site.Title }}</h1>
     <p class="hero-tagline">{{ .Site.Params.tagline }}</p>
+    <img class="hero-product" src="/img/humane-pins.png" alt="Humane Ai Pins">
     <div class="hero-actions">
       <a href="/getting-started/" class="hero-cta">Get Started</a>
       <a
@@ -17,6 +18,6 @@
 </section>
 
 <section class="home-content">
-  <div class="container">{{ .Content }}</div>
+  <div class="container home-content--centered">{{ .Content }}</div>
 </section>
 {{ end }}

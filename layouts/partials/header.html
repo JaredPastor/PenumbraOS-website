@@ -1,19 +1,21 @@
 <header class="site-header">
   <div class="header-inner">
     <a href="/" class="site-logo">
-      <img class="logo-icon" src="/img/logo.png" width="28" height="28" alt="" aria-hidden="true">
+      <img class="logo-icon" src="/img/penumbra-logo-square.png" alt="" aria-hidden="true">
       <span>PenumbraOS</span>
     </a>
     <nav class="site-nav">
       {{ range .Site.Menus.main }}
-        {{ if eq .Identifier "center" }}
-          <a href="{{ .URL }}" class="nav-link nav-link--pill{{ if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} active{{ end }}">{{ .Name }}</a>
-          <span class="nav-divider" aria-hidden="true"></span>
-        {{ else }}
+        {{ if ne .Identifier "center" }}
           <a href="{{ .URL }}" class="nav-link{{ if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} active{{ end }}">{{ .Name }}</a>
         {{ end }}
       {{ end }}
-      <a href="https://github.com/PenumbraOS/" class="nav-link nav-link--github" target="_blank" rel="noopener" aria-label="GitHub">{{ partial "icons/github.html" }}</a>
+      <a href="https://github.com/PenumbraOS/" class="nav-link nav-link--github" target="_blank" rel="noopener">GitHub</a>
+      {{ range .Site.Menus.main }}
+        {{ if eq .Identifier "center" }}
+          <a href="{{ .URL }}" class="nav-link nav-link--pill{{ if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} active{{ end }}">{{ .Name }}</a>
+        {{ end }}
+      {{ end }}
     </nav>
   </div>
 </header>

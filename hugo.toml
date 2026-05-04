@@ -17,23 +17,17 @@ title = 'PenumbraOS'
 
 [params.footer]
   note = 'PenumbraOS is not affiliated with Humane Inc. or HP Inc. The Ai Pin trademark and archived content remains property of HP.'
-  [[params.footer.links]]
-    name = 'GitHub'
-    url = 'https://github.com/PenumbraOS/'
-  [[params.footer.links]]
-    name = 'Blog'
-    url = 'https://writings.agg.im/'
 
 [menu]
   [[menu.main]]
     identifier = 'center'
-    name = 'Center'
+    name = 'Dashboard'
     url = '/center/'
     pageRef = '/center'
     weight = 10
   [[menu.main]]
     identifier = 'getting-started'
-    name = 'Getting Started'
+    name = 'Start'
     url = '/getting-started/'
     pageRef = '/getting-started'
     weight = 20
@@ -45,7 +39,7 @@ title = 'PenumbraOS'
     weight = 30
   [[menu.main]]
     identifier = 'archive'
-    name = 'Humane Archive'
+    name = 'Archive'
     url = '/archive/'
     pageRef = '/archive'
     weight = 40

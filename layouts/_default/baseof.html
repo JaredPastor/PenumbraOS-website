@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ .Site.Title }}</title>
   <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
-  <link rel="icon" href="/img/logo.png" type="image/png">
+  <link rel="icon" href="/img/penumbra-logo-square.png" type="image/png">
   {{ $css := resources.Get "css/main.css" }}
   <link rel="stylesheet" href="{{ $css.RelPermalink }}">
   <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
   <script src="/pagefind/pagefind-ui.js"></script>
   {{ block "head" . }}{{ end }}
 </head>
-<body>
+<body{{ if .IsHome }} class="page-home"{{ end }}>
   {{ partial "header.html" . }}
 
   <main>
@@ -31,6 +31,170 @@
           showImages: false,
           resetStyles: false
         });
+      }
+
+      var frame = document.querySelector('.origin-story-frame');
+      var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (frame) {
+        var steps = Array.prototype.slice.call(frame.querySelectorAll('.origin-step'));
+
+        for (var i = 0; i < steps.length - 1; i++) {
+          // Centered stack: straight vertical connector (viewBox 0–100).
+          var d = 'M 50 0 L 50 100';
+          var conn = document.createElement('div');
+          conn.className = 'origin-connector';
+          conn.setAttribute('aria-hidden', 'true');
+          conn.innerHTML =
+            '<svg class="origin-connector__svg" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+            '<path class="origin-connector__path" pathLength="1" d="' +
+            d +
+            '" fill="none" stroke="rgba(255,255,255,0.82)" stroke-width="3.25" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" /></svg>';
+          steps[i].insertAdjacentElement('afterend', conn);
+        }
+
+        if (!reducedMotion) {
+          frame.setAttribute('data-scroll-anim', '');
+
+          var updateFlow = function() {
+            var rect = frame.getBoundingClientRect();
+            var viewport = window.innerHeight || document.documentElement.clientHeight;
+            var start = viewport * 0.78;
+            var end = -rect.height + viewport * 0.22;
+            var p = (start - rect.top) / (start - end);
+            p = Math.max(0, Math.min(1, p));
+            frame.style.setProperty('--flow-progress', p.toFixed(4));
+          };
+
+          updateFlow();
+          window.addEventListener('scroll', updateFlow, { passive: true });
+          window.addEventListener('resize', updateFlow);
+
+          var io = new IntersectionObserver(
+            function(entries) {
+              entries.forEach(function(entry) {
+                if (!entry.isIntersecting) return;
+                var el = entry.target;
+                el.classList.add('is-visible');
+                var prev = el.previousElementSibling;
+                if (prev && prev.classList && prev.classList.contains('origin-connector')) {
+                  prev.classList.add('is-lit');
+                }
+              });
+            },
+            { root: null, rootMargin: '0% 0px -11% 0px', threshold: 0.06 }
+          );
+
+          steps.forEach(function(step, j) {
+            step.style.setProperty('--stagger', String(j));
+            io.observe(step);
+          });
+        } else {
+          steps.forEach(function(step) {
+            step.classList.add('is-visible');
+          });
+          frame.querySelectorAll('.origin-connector').forEach(function(c) {
+            c.classList.add('is-lit');
+          });
+        }
+      }
+
+      var whyScene = document.querySelector('[data-why-scroll-scene]');
+      if (whyScene) {
+        var whyCards = Array.prototype.slice.call(whyScene.querySelectorAll('.why-tl-card'));
+        var mqWhy = window.matchMedia('(max-width: 960px)');
+        var mqWhyReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+        function whyScrollDisabled() {
+          return mqWhy.matches || mqWhyReduce.matches;
+        }
+
+        function layoutWhyScene() {
+          if (whyScrollDisabled()) {
+            whyScene.style.minHeight = '';
+            whyCards.forEach(function(c) {
+              c.style.opacity = '';
+              c.style.transform = '';
+              c.style.zIndex = '';
+            });
+            return;
+          }
+          var vh = window.innerHeight || 800;
+          /* First card is static; remaining cards share scroll length (one fewer “fly-in”). */
+          var scrollUnits = Math.max(1, whyCards.length - 1);
+          whyScene.style.minHeight = Math.round((scrollUnits + 0.38) * vh) + 'px';
+        }
+
+        function easeOutCubic(t) {
+          return 1 - Math.pow(1 - t, 3);
+        }
+
+        function tickWhyScroll() {
+          if (whyScrollDisabled()) return;
+          var rect = whyScene.getBoundingClientRect();
+          var scrollable = whyScene.offsetHeight - window.innerHeight;
+          var p = scrollable <= 0 ? 1 : -rect.top / scrollable;
+          p = Math.max(0, Math.min(1, p));
+          var n = whyCards.length;
+          var animCount = Math.max(1, n - 1);
+          var segment = 1 / (animCount + 0.18);
+          whyCards.forEach(function(card, i) {
+            /* Vertical offset per card in the settled stack (bigger = more strip visible) */
+            var stackY = i * 54;
+            var rot = (i % 2 === 0 ? -1 : 1) * (1.35 + i * 0.18);
+            if (i === 0) {
+              card.style.opacity = '1';
+              card.style.transform =
+                'translateY(' +
+                stackY.toFixed(1) +
+                'px) rotate(' +
+                rot.toFixed(2) +
+                'deg) scale(1)';
+              card.style.zIndex = String(40 + i);
+              return;
+            }
+            var j = i - 1;
+            var start = j * segment;
+            var dur = segment * 0.9;
+            var t = dur <= 0 ? 1 : (p - start) / dur;
+            t = Math.max(0, Math.min(1, t));
+            var e = easeOutCubic(t);
+            var fromY = stackY + 285;
+            var y = fromY + (stackY - fromY) * e;
+            var op = t < 0.03 ? 0 : Math.min(1, (t - 0.03) / 0.2);
+            card.style.opacity = String(op);
+            card.style.transform =
+              'translateY(' +
+              y.toFixed(1) +
+              'px) rotate(' +
+              (e * rot).toFixed(2) +
+              'deg) scale(' +
+              (0.93 + e * 0.07).toFixed(3) +
+              ')';
+            card.style.zIndex = String(40 + i);
+          });
+        }
+
+        layoutWhyScene();
+        tickWhyScroll();
+        window.addEventListener('scroll', tickWhyScroll, { passive: true });
+        window.addEventListener('resize', function() {
+          layoutWhyScene();
+          tickWhyScroll();
+        });
+
+        if (mqWhy.addEventListener) {
+          mqWhy.addEventListener('change', function() {
+            layoutWhyScene();
+            tickWhyScroll();
+          });
+        }
+        if (mqWhyReduce.addEventListener) {
+          mqWhyReduce.addEventListener('change', function() {
+            layoutWhyScene();
+            tickWhyScroll();
+          });
+        }
       }
     });
   </script>

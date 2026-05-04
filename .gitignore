@@ -1,7 +1,12 @@
 /dist
 /public
+/public_test
 /resources/_gen
 /static/install
 /static/center
 /static/installer
 .DS_Store
+
+# Local Hugo dev output (not source)
+hugo-server.log
+hugo-server.err.log
