@@ -33,71 +33,7 @@
         });
       }
 
-      var frame = document.querySelector('.origin-story-frame');
       var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      if (frame) {
-        var steps = Array.prototype.slice.call(frame.querySelectorAll('.origin-step'));
-
-        for (var i = 0; i < steps.length - 1; i++) {
-          // Centered stack: straight vertical connector (viewBox 0–100).
-          var d = 'M 50 0 L 50 100';
-          var conn = document.createElement('div');
-          conn.className = 'origin-connector';
-          conn.setAttribute('aria-hidden', 'true');
-          conn.innerHTML =
-            '<svg class="origin-connector__svg" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
-            '<path class="origin-connector__path" pathLength="1" d="' +
-            d +
-            '" fill="none" stroke="rgba(255,255,255,0.82)" stroke-width="3.25" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" /></svg>';
-          steps[i].insertAdjacentElement('afterend', conn);
-        }
-
-        if (!reducedMotion) {
-          frame.setAttribute('data-scroll-anim', '');
-
-          var updateFlow = function() {
-            var rect = frame.getBoundingClientRect();
-            var viewport = window.innerHeight || document.documentElement.clientHeight;
-            var start = viewport * 0.78;
-            var end = -rect.height + viewport * 0.22;
-            var p = (start - rect.top) / (start - end);
-            p = Math.max(0, Math.min(1, p));
-            frame.style.setProperty('--flow-progress', p.toFixed(4));
-          };
-
-          updateFlow();
-          window.addEventListener('scroll', updateFlow, { passive: true });
-          window.addEventListener('resize', updateFlow);
-
-          var io = new IntersectionObserver(
-            function(entries) {
-              entries.forEach(function(entry) {
-                if (!entry.isIntersecting) return;
-                var el = entry.target;
-                el.classList.add('is-visible');
-                var prev = el.previousElementSibling;
-                if (prev && prev.classList && prev.classList.contains('origin-connector')) {
-                  prev.classList.add('is-lit');
-                }
-              });
-            },
-            { root: null, rootMargin: '0% 0px -11% 0px', threshold: 0.06 }
-          );
-
-          steps.forEach(function(step, j) {
-            step.style.setProperty('--stagger', String(j));
-            io.observe(step);
-          });
-        } else {
-          steps.forEach(function(step) {
-            step.classList.add('is-visible');
-          });
-          frame.querySelectorAll('.origin-connector').forEach(function(c) {
-            c.classList.add('is-lit');
-          });
-        }
-      }
 
       var whyTimeline = document.querySelector('.landing-section--why-scroll .why-timeline');
       if (whyTimeline) {
